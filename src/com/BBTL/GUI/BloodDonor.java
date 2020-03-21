@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
-
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -25,6 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -37,7 +38,9 @@ public class BloodDonor {
 	private JTextField name;
 	private JTextField age;
 	private JTable table;
-	// private TableFillData tfd = new TableFillData();
+	private IDGenerater idg = new IDGenerater();
+	private BinarySearchTree tree = new BinarySearchTree();
+	//private int DonorId= idg.autoIDGenerate();
 
 	/**
 	 * Launch the application.
@@ -66,6 +69,7 @@ public class BloodDonor {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+   
 	private void initialize() {
 		frame = new JFrame("Donor Detail Form");
 		frame.setBounds(100, 100, 796, 444);
@@ -121,13 +125,6 @@ public class BloodDonor {
 		lblDate.setBounds(21, 140, 46, 14);
 		frame.getContentPane().add(lblDate);
 
-		JButton btnAdd = new JButton("ADD");
-		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
 		btnAdd.setBounds(23, 371, 89, 23);
 		frame.getContentPane().add(btnAdd);
 
@@ -181,6 +178,18 @@ public class BloodDonor {
 		age.setBounds(135, 317, 132, 20);
 		frame.getContentPane().add(age);
 		age.setColumns(10);
+		
+
+		JButton btnAdd = new JButton("ADD");
+		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//String name 	
+				idg.addToList(idg.autoIDGenerate());
+				 
+			
+			}
+		});
 
 		JButton btnCancel = new JButton("EXIT");
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
