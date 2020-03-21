@@ -68,24 +68,9 @@ class BinarySearchTree {
 	} 
 
 	public static void main(String[] args) {
-		boolean flag = true;
 		BinarySearchTree tree = new BinarySearchTree();
-		int arr[] = new int[30] ;
-		int id = (int) (Math.random() * (1 - 30) + 30);
-		for(int i=0;i<arr.length;i++)
-		{
-			 if(arr[i]==id)
-			 {
-				 flag = false;
-			 }
-		}
-//		if()
-//		{
-//			
-//		}
+
 		
-		//Collections.shuffle(Arrays.asList(arr));
-		System.out.println(arr);
 		//Collections.shuffle(Arrays.asList(arr));
 		/*
 		 * Let us create following BST 
