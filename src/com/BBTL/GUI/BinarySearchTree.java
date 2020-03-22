@@ -3,23 +3,8 @@ package com.BBTL.GUI;
 
 class BinarySearchTree {
 	public int level = 0;
-	class Node {
-		int key;
-		Node left, right;
-		String bsName,bsGroup,bsGender;
-		int bsAge;
-		public Node(int item, String name, String bGroup, String gender,int age) {
-			key = item;
-			bsName=name;
-			bsGroup=bGroup;
-			bsGender = gender;
-			bsAge = age;
-			left = right = null;
-
-		}
-	}
-
-	static Node root;
+	
+	private static   Nodes root;
 
 	BinarySearchTree() {
 		root = null;
@@ -30,10 +15,10 @@ class BinarySearchTree {
 	}
 
 
-	Node insertRec(Node root, int key,String bsName,String bsGroup,String bsGender,int bsAge) {
+	Nodes insertRec(Nodes root, int key,String bsName,String bsGroup,String bsGender,int bsAge) {
 
 		if (root == null) {
-			root = new Node(key,bsName, bsGroup, bsGender, bsAge);
+			root = new Nodes(key,bsName, bsGroup, bsGender, bsAge);
 			return root;
 		}
 
@@ -45,7 +30,7 @@ class BinarySearchTree {
 		return root;
 	}
 
-	public static void printBinaryTree(Node root, int level){
+	public static void printBinaryTree(Nodes root, int level){
 	    if(root==null)
 	         return;
 	    printBinaryTree(root.right, level+1);
@@ -84,6 +69,6 @@ class BinarySearchTree {
 	   // tree.inorder();
 		
 		tree.printBinaryTree(root,0);
-
+//
 	}
 }

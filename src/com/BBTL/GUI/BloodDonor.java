@@ -30,6 +30,8 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import java.awt.Font;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class BloodDonor {
 
@@ -37,10 +39,11 @@ public class BloodDonor {
 	private JTextField no;
 	private JTextField name;
 	private JTextField age;
-	private JTable table;
 	private IDGenerater idg = new IDGenerater();
 	private BinarySearchTree tree = new BinarySearchTree();
-	//private int DonorId= idg.autoIDGenerate();
+	private static  Nodes root;
+
+	// private int DonorId= idg.autoIDGenerate();
 
 	/**
 	 * Launch the application.
@@ -69,14 +72,16 @@ public class BloodDonor {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-   
+
 	private void initialize() {
 		frame = new JFrame("Donor Detail Form");
 		frame.setBounds(100, 100, 796, 444);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+		
 		JLabel lblDonorName = new JLabel("Donor No.");
+		lblDonorName.setBackground(Color.DARK_GRAY);
 		lblDonorName.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDonorName.setBounds(23, 179, 86, 14);
 		frame.getContentPane().add(lblDonorName);
@@ -125,18 +130,6 @@ public class BloodDonor {
 		lblDate.setBounds(21, 140, 46, 14);
 		frame.getContentPane().add(lblDate);
 
-		btnAdd.setBounds(23, 371, 89, 23);
-		frame.getContentPane().add(btnAdd);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(326, 21, 442, 307);
-		frame.getContentPane().add(scrollPane);
-
-		table = new JTable();
-		// table.setModel(tfd.refreshFromDB());
-		scrollPane.setViewportView(table);
-		table.setBackground(Color.PINK);
-
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnUpdate.addActionListener(new ActionListener() {
@@ -178,18 +171,46 @@ public class BloodDonor {
 		age.setBounds(135, 317, 132, 20);
 		frame.getContentPane().add(age);
 		age.setColumns(10);
-		
 
 		JButton btnAdd = new JButton("ADD");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//String name 	
-				idg.addToList(idg.autoIDGenerate());
-				 
-			
+				String Dname = name.getText();
+				String Dbgroup = bgroup.getSelectedItem().toString();
+				String Dgender = gender.getSelectedItem().toString();
+				int Dage = 0;
+				Dage = Integer.parseInt(age.getText());
+				int AutoID = idg.autoIDGenerate();
+				idg.addToList(AutoID);
+				boolean flag = true;
+				if(Dname==null)
+				{
+					JOptionPane.showMessageDialog(null, "Donor's name Can not be empty");
+					flag = false;
+				}
+				if(Dbgroup==null)
+				{
+					JOptionPane.showMessageDialog(null, "Select Donor's Blood Group");
+					flag = false;
+				}if(Dgender==null)
+				{
+					JOptionPane.showMessageDialog(null, "Select Donor's gender");
+					flag = false;
+				}if(Dage==0)
+				{
+					JOptionPane.showMessageDialog(null, "Donor's age Can not be empty");
+					flag = false;
+				}
+				if(flag==true)
+				{
+					tree.insert(AutoID,Dname,Dbgroup,Dgender,Dage);
+				}
+				
 			}
 		});
+		btnAdd.setBounds(23, 371, 89, 23);
+		frame.getContentPane().add(btnAdd);
 
 		JButton btnCancel = new JButton("EXIT");
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -202,6 +223,11 @@ public class BloodDonor {
 		});
 		btnCancel.setBounds(679, 371, 89, 23);
 		frame.getContentPane().add(btnCancel);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(326, 22, 442, 312);
+		textArea.setText("g");
+		frame.getContentPane().add(textArea);
 
 		JLabel lblbloodIcon = new JLabel("");
 		lblbloodIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("logo.png")).getImage()

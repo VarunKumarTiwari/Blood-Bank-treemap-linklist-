@@ -38,9 +38,7 @@ public class IDGenerater {
 	public void addToList(int id)
 	{
 		IDarr.add(id);
-		for (Integer number : IDarr) {
-			System.out.println(number);
-		}
+		
 	}
 
 }
