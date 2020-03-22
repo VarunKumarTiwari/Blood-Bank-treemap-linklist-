@@ -69,14 +69,14 @@ class BinarySearchTree {
 	 *   / \ / \ 
 	 * 20 40 60 80
 		 */
-//		tree.insert(50,"varun","B+","male",18);
-//		tree.insert(30,"varun","B+","male",18);
-//		tree.insert(20,"varun","B+","male",18);
-//		tree.insert(40,"varun","B+","male",18);
-//		tree.insert(70,"varun","B+","male",18);
-//		tree.insert(60,"varun","B+","male",18);
-//		tree.insert(80,"varun","B+","male",18);
-//		tree.insert(90,"varun","B+","male",18);
+		tree.insert(50,"varun","B+","male",18);
+		tree.insert(30,"varun","B+","male",18);
+		tree.insert(20,"varun","B+","male",18);
+		tree.insert(40,"varun","B+","male",18);
+		tree.insert(70,"varun","B+","male",18);
+		tree.insert(60,"varun","B+","male",18);
+		tree.insert(80,"varun","B+","male",18);
+		tree.insert(90,"Ayushi","B+","male",18);
 //		
 //		tree.insert(66);
 //		tree.insert(100);
