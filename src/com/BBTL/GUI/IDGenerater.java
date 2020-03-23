@@ -2,6 +2,8 @@ package com.BBTL.GUI;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class IDGenerater {
 	private ArrayList<Integer> IDarr = new ArrayList<Integer>(30);
 	private int counter = 0;
@@ -23,14 +25,14 @@ public class IDGenerater {
 
 				counter++;
 			} else {
-				System.out.println("Memory full");
+				JOptionPane.showMessageDialog(null, "Memory full");
 			}
 		} else {
 			if (counter <= 29) {
 				autoIDGenerate();
 				counter++;
 			} else {
-				System.out.println("Memory full");
+				JOptionPane.showMessageDialog(null, "Memory full");
 			}
 		}
 		return autoID;

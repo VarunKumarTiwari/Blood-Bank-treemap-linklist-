@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -36,13 +37,13 @@ import javax.swing.JTextArea;
 public class BloodDonor {
 
 	JFrame frame;
-	private JTextField no;
 	private JTextField name;
 	private JTextField age;
 	private IDGenerater idg = new IDGenerater();
 	private BinarySearchTree tree = new BinarySearchTree();
-	private static  Nodes root;
-
+	private static Nodes root;
+	private static JTextArea textArea;
+	
 	// private int DonorId= idg.autoIDGenerate();
 
 	/**
@@ -61,6 +62,28 @@ public class BloodDonor {
 		});
 	}
 
+	public static void printBinaryTree(Nodes root, int level){
+		
+	    if(root==null)
+	         return;
+	    printBinaryTree(root.right, level+1);
+	    if(level!=0){
+	    	
+	        for(int i=0;i<level-1;i++) {
+	        	textArea.append("|\t");
+	        }
+	        textArea.append("|-------"+root.key+" "+root.bsName);
+	        textArea.append("\n");
+	    }
+	    else {
+	    	
+	    	textArea.append(root.key+" "+root.bsName);
+	    textArea.append("\n");
+	    }
+	    printBinaryTree(root.left, level+1);
+	} 
+
+	
 	/**
 	 * Create the application.
 	 */
@@ -69,6 +92,7 @@ public class BloodDonor {
 
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -79,13 +103,6 @@ public class BloodDonor {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		
-		JLabel lblDonorName = new JLabel("Donor No.");
-		lblDonorName.setBackground(Color.DARK_GRAY);
-		lblDonorName.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDonorName.setBounds(23, 179, 86, 14);
-		frame.getContentPane().add(lblDonorName);
-
 		JLabel label_1 = new JLabel("Blood Donation");
 		label_1.setForeground(new Color(107, 142, 35));
 		label_1.setFont(new Font("Nirmala UI", Font.BOLD, 21));
@@ -94,35 +111,35 @@ public class BloodDonor {
 
 		JLabel lblDonorName_1 = new JLabel("Donor Name");
 		lblDonorName_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDonorName_1.setBounds(23, 216, 86, 14);
+		lblDonorName_1.setBounds(23, 182, 86, 14);
 		frame.getContentPane().add(lblDonorName_1);
 
 		JLabel lblBloodGroup = new JLabel("Blood Group");
 		lblBloodGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblBloodGroup.setBounds(23, 250, 86, 14);
+		lblBloodGroup.setBounds(23, 224, 86, 14);
 		frame.getContentPane().add(lblBloodGroup);
 
 		JLabel lblSex = new JLabel("Gender");
 		lblSex.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblSex.setBounds(23, 285, 86, 14);
+		lblSex.setBounds(23, 266, 86, 14);
 		frame.getContentPane().add(lblSex);
 
 		JComboBox bgroup = new JComboBox();
 		bgroup.setFont(new Font("Tahoma", Font.BOLD, 11));
 		bgroup.setModel(new DefaultComboBoxModel(
 				new String[] { "Select Blood Group", "O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+" }));
-		bgroup.setBounds(135, 246, 132, 22);
+		bgroup.setBounds(135, 220, 132, 22);
 		frame.getContentPane().add(bgroup);
 
 		JComboBox gender = new JComboBox();
 		gender.setFont(new Font("Tahoma", Font.BOLD, 11));
 		gender.setModel(new DefaultComboBoxModel(new String[] { "Select Gender", "Male", "Female", "Rather Not Say" }));
-		gender.setBounds(135, 281, 132, 22);
+		gender.setBounds(135, 262, 132, 22);
 		frame.getContentPane().add(gender);
 
 		JLabel lblAge = new JLabel("Age");
 		lblAge.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblAge.setBounds(23, 320, 86, 14);
+		lblAge.setBounds(23, 304, 86, 14);
 		frame.getContentPane().add(lblAge);
 
 		JLabel lblDate = new JLabel("Date");
@@ -144,7 +161,8 @@ public class BloodDonor {
 		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				//tree.printBinaryTree(root, 0);
 			}
 		});
 		btnDelete.setBounds(269, 371, 89, 23);
@@ -157,25 +175,28 @@ public class BloodDonor {
 		label.setBounds(65, 140, 77, 14);
 		frame.getContentPane().add(label);
 
-		no = new JTextField();
-		no.setBounds(135, 176, 132, 20);
-		frame.getContentPane().add(no);
-		no.setColumns(10);
-
 		name = new JTextField();
-		name.setBounds(135, 213, 132, 20);
+		name.setBounds(135, 179, 132, 20);
 		frame.getContentPane().add(name);
 		name.setColumns(10);
 
 		age = new JTextField();
-		age.setBounds(135, 317, 132, 20);
+		age.setBounds(135, 301, 132, 20);
 		frame.getContentPane().add(age);
 		age.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(326, 22, 442, 312);
+		frame.getContentPane().add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
 
 		JButton btnAdd = new JButton("ADD");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String Dname = name.getText();
 				String Dbgroup = bgroup.getSelectedItem().toString();
 				String Dgender = gender.getSelectedItem().toString();
@@ -204,7 +225,9 @@ public class BloodDonor {
 				}
 				if(flag==true)
 				{
-					tree.insert(AutoID,Dname,Dbgroup,Dgender,Dage);
+					textArea.setText("");
+					root = tree.insertRec(root, AutoID,Dname,Dbgroup,Dgender,Dage);
+					printBinaryTree(root, 0);
 				}
 				
 			}
@@ -224,10 +247,7 @@ public class BloodDonor {
 		btnCancel.setBounds(679, 371, 89, 23);
 		frame.getContentPane().add(btnCancel);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(326, 22, 442, 312);
-		textArea.setText("g");
-		frame.getContentPane().add(textArea);
+		
 
 		JLabel lblbloodIcon = new JLabel("");
 		lblbloodIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("logo.png")).getImage()
