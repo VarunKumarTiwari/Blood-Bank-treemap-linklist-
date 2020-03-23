@@ -42,5 +42,15 @@ public class IDGenerater {
 		IDarr.add(id);
 		
 	}
+	
+	public void deleteToList(int id)
+	{
+		IDarr.remove(id);
+		for(int number:IDarr)
+		{
+			System.out.println(IDarr);
+		}
+		
+	}
 
 }

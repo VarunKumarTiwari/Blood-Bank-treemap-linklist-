@@ -33,6 +33,7 @@ import javax.swing.JScrollPane;
 import java.awt.Font;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.JPanel;
 
 public class BloodDonor {
 
@@ -43,6 +44,8 @@ public class BloodDonor {
 	private BinarySearchTree tree = new BinarySearchTree();
 	private static Nodes root;
 	private static JTextArea textArea;
+	private JTextField serchtf;
+	private JTextField textField;
 	
 	// private int DonorId= idg.autoIDGenerate();
 
@@ -99,7 +102,7 @@ public class BloodDonor {
 
 	private void initialize() {
 		frame = new JFrame("Donor Detail Form");
-		frame.setBounds(100, 100, 796, 444);
+		frame.setBounds(100, 100, 796, 501);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -147,27 +150,41 @@ public class BloodDonor {
 		lblDate.setBounds(21, 140, 46, 14);
 		frame.getContentPane().add(lblDate);
 
-		JButton btnUpdate = new JButton("UPDATE");
-		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		btnUpdate.setBounds(149, 371, 89, 23);
-		frame.getContentPane().add(btnUpdate);
-
-		JButton btnDelete = new JButton("DELETE");
-		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.PINK);
+		panel.setBounds(181, 402, 488, 49);
+		frame.getContentPane().add(panel);
+				panel.setLayout(null);
+		
+				serchtf = new JTextField();
+				serchtf.setBounds(153, 21, 191, 20);
+				panel.add(serchtf);
+				serchtf.setColumns(10);
 				
-				//tree.printBinaryTree(root, 0);
-			}
-		});
-		btnDelete.setBounds(269, 371, 89, 23);
-		frame.getContentPane().add(btnDelete);
-
+				JLabel lblByDonorId = new JLabel("Search by Donor ID");
+				lblByDonorId.setFont(new Font("Tahoma", Font.BOLD, 11));
+				lblByDonorId.setBounds(10, 24, 139, 14);
+				panel.add(lblByDonorId);
+				
+				JButton btnSearch = new JButton("Search");
+				btnSearch.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						int key = Integer.parseInt(serchtf.getText());
+						root = tree.searchRec(root,key);
+						
+						name.setText(""+root.bsName);
+						bgroup.setSelectedItem(root.bsGroup);
+						gender.setSelectedItem(root.bsGender);
+						age.setText(""+root.bsAge);
+						
+					}
+				});
+				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnSearch.setBounds(368, 20, 89, 23);
+				panel.add(btnSearch);
+		
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		JLabel label = new JLabel(formatter.format(date));
@@ -191,6 +208,8 @@ public class BloodDonor {
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
+		
+	
 
 		JButton btnAdd = new JButton("ADD");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -228,11 +247,15 @@ public class BloodDonor {
 					textArea.setText("");
 					root = tree.insertRec(root, AutoID,Dname,Dbgroup,Dgender,Dage);
 					printBinaryTree(root, 0);
+//					name.setText("");
+//					bgroup.setSelectedIndex(0);
+//					gender.setSelectedIndex(0);
+//					age.setText("");
 				}
 				
 			}
 		});
-		btnAdd.setBounds(23, 371, 89, 23);
+		btnAdd.setBounds(53, 428, 89, 23);
 		frame.getContentPane().add(btnAdd);
 
 		JButton btnCancel = new JButton("EXIT");
@@ -244,10 +267,38 @@ public class BloodDonor {
 				// b.frame.setVisible(true);
 			}
 		});
-		btnCancel.setBounds(679, 371, 89, 23);
+		btnCancel.setBounds(679, 428, 89, 23);
 		frame.getContentPane().add(btnCancel);
 		
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBackground(Color.PINK);
+		panel_1.setBounds(181, 345, 488, 49);
+		frame.getContentPane().add(panel_1);
 		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(154, 21, 184, 20);
+		panel_1.add(textField);
+		
+		JLabel lblDeleteByDonor = new JLabel("Delete by Donor ID");
+		lblDeleteByDonor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDeleteByDonor.setBounds(10, 24, 133, 14);
+		panel_1.add(lblDeleteByDonor);
+		
+		JButton button = new JButton("Delete");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int key = Integer.parseInt(textField.getText());
+				textArea.setText("");
+				tree.deleteRec(root,key);
+				printBinaryTree(root, 0);
+			}
+		});
+		button.setFont(new Font("Tahoma", Font.BOLD, 11));
+		button.setBounds(365, 20, 89, 23);
+		panel_1.add(button);
 
 		JLabel lblbloodIcon = new JLabel("");
 		lblbloodIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("logo.png")).getImage()
@@ -257,8 +308,12 @@ public class BloodDonor {
 
 		JLabel lblbackground = new JLabel("");
 		lblbackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("background.jpg")));
-		lblbackground.setBounds(0, 0, 780, 405);
+		lblbackground.setBounds(0, 0, 780, 462);
 		frame.getContentPane().add(lblbackground);
+		
+		
+		
+		
 
 	}
 }
