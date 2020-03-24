@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import java.awt.Font;
@@ -44,9 +45,11 @@ public class HMBloodDonor {
 	private JTextField age;
 	private IDGenerater idg = new IDGenerater();
 	private BDHashMap hm = new BDHashMap();
-	private static JTextArea textArea;
 	private JTextField serchtf;
 	private JTextField textField;
+	private JTable table;
+	private DonorData data;
+	private Map map;
 
 	// private int DonorId= idg.autoIDGenerate();
 
@@ -74,7 +77,7 @@ public class HMBloodDonor {
 		initialize();
 
 	}
-
+	
 //	public void printRec() {
 //		map.forEach((key, value) -> System.out.println(key + " : " + value));
 //	}
@@ -152,21 +155,28 @@ public class HMBloodDonor {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//						Nodes roott;
-//						int key = Integer.parseInt(serchtf.getText());
-//						roott = tree.searchRec(root,key);
-//						
-//						name.setText(""+root.bsName);
-//						bgroup.setSelectedItem(root.bsGroup);
-//						gender.setSelectedItem(root.bsGender);
-//						age.setText(""+root.bsAge);
-//						
+					
+						int key = Integer.parseInt(serchtf.getText());
+						data = hm.searchRec(key);
+						name.setText(""+data.getName());
+						bgroup.setSelectedItem(data.getbGroup());
+						gender.setSelectedItem(data.getGender());
+						age.setText(""+data.getAge());
+						
 			}
 		});
 		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSearch.setBounds(368, 20, 89, 23);
 		panel.add(btnSearch);
 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(317, 22, 453, 299);
+		frame.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setBackground(Color.PINK);
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		JLabel label = new JLabel(formatter.format(date));
@@ -183,13 +193,6 @@ public class HMBloodDonor {
 		age.setBounds(135, 301, 132, 20);
 		frame.getContentPane().add(age);
 		age.setColumns(10);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(326, 22, 442, 312);
-		frame.getContentPane().add(scrollPane);
-
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
 
 		JButton btnAdd = new JButton("ADD");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -222,16 +225,12 @@ public class HMBloodDonor {
 				}
 				if (flag == true) {
 					
-					hm.insertRec(AutoID, Dname, Dbgroup, Dgender, Dage);
-					hm. map.forEach((key, value) -> textArea.setText(key + " Name : " + value.getName()+" bGroup : "+
-							value.getbGroup()+" Gender : "+value.getGender()+" Age : "+value.getAge()));
-//					name.setText("");
-//					bgroup.setSelectedIndex(0);
-//					gender.setSelectedIndex(0);
-//					age.setText("");
+				map = hm.insertRec(AutoID, Dname, Dbgroup, Dgender, Dage);
+					table.setModel(hm.toTableModel(map));
 				}
 
 			}
+
 		});
 		btnAdd.setBounds(53, 428, 89, 23);
 		frame.getContentPane().add(btnAdd);
@@ -267,10 +266,11 @@ public class HMBloodDonor {
 		JButton button = new JButton("Delete");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				textArea.setText("");
-//				int key = Integer.parseInt(textField.getText());
-//				tree.deleteRec(root,key);
-//				printBinaryTree(root, 0);
+				
+				int key = Integer.parseInt(textField.getText());
+				hm.deleteRec(key);
+				table.setModel(hm.toTableModel(map));
+				
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -287,6 +287,8 @@ public class HMBloodDonor {
 		lblbackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("background.jpg")));
 		lblbackground.setBounds(0, 0, 780, 462);
 		frame.getContentPane().add(lblbackground);
+		
+		
 
 	}
 }
