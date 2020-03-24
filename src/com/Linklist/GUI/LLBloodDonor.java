@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import java.awt.Font;
@@ -43,11 +44,12 @@ public class LLBloodDonor {
 	public JFrame frame;
 	private JTextField name;
 	private JTextField age;
-	private static JTextArea textArea;
 	private JTextField serchtf;
 	private JTextField textField;
 	private LinkList ll = new LinkList();
 	private IDGenerater idg = new IDGenerater();
+	private JTable table;
+	private LinkedList<LLDonorData> lData;
 	// private int DonorId= idg.autoIDGenerate();
 
 	/**
@@ -184,13 +186,12 @@ public class LLBloodDonor {
 		age.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(326, 22, 442, 312);
+		scrollPane.setBounds(317, 24, 441, 221);
 		frame.getContentPane().add(scrollPane);
 		
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
-		
-	
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setBackground(Color.PINK);
 
 		JButton btnAdd = new JButton("ADD");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -225,9 +226,10 @@ public class LLBloodDonor {
 				}
 				if(flag==true)
 				{
-					textArea.setText("");
+					
 
-					ll.addToLinkList(AutoID,Dname,Dbgroup,Dgender,Dage);
+					lData = ll.addToLinkList(AutoID,Dname,Dbgroup,Dgender,Dage);
+					table.setModel(ll.toTableModel(lData));
 //					name.setText("");
 //					bgroup.setSelectedIndex(0);
 //					gender.setSelectedIndex(0);
@@ -272,15 +274,17 @@ public class LLBloodDonor {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int key = Integer.parseInt(textField.getText());
-				textArea.setText("");
+				ll.deleteRec(key);
+				table.setModel(ll.toTableModel(lData));
 				
 			}
 		});
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
 		button.setBounds(365, 20, 89, 23);
 		panel_1.add(button);
-
+		
 		JLabel lblbloodIcon = new JLabel("");
+		
 		lblbloodIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("logo.png")).getImage()
 				.getScaledInstance(123, 99, Image.SCALE_SMOOTH)));
 		lblbloodIcon.setBounds(10, 11, 123, 99);
@@ -290,6 +294,8 @@ public class LLBloodDonor {
 		lblbackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("background.jpg")));
 		lblbackground.setBounds(0, 0, 780, 462);
 		frame.getContentPane().add(lblbackground);
+		
+		
 		
 		
 		
