@@ -1,22 +1,31 @@
 package com.HashMap.GUI;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import com.Linklist.GUI.LLDonorData;
+
 public class BDHashMap {
 
 	HashMap<Integer, DonorData> map = new HashMap<Integer, DonorData>();
-	public DonorData dData = new DonorData();
+	 
 
 	public HashMap<Integer, DonorData> insertRec(int AutoID, String name, String bGroup, String Gender, int age) {
-
+		DonorData dData = new DonorData();
 		dData.setName(name);
 		dData.setbGroup(bGroup);
 		dData.setGender(Gender);
@@ -70,5 +79,41 @@ public class BDHashMap {
 
 		return model;
 	}
+	
+	public void sort()
+	{
+		List<Integer> employeeByKey = new ArrayList<>(map.keySet());
+		
+		Collections.sort(employeeByKey);  
+		for(int r :employeeByKey)
+		{
+			toTableModel(map) ;
+			//map.get(r)
+		}
+	}
+	
+	public void PSave()
+	{
+		try {
+	         FileOutputStream fileOut = new FileOutputStream("HashMap_Data.dat");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         for (Map.Entry<Integer, DonorData> entry : map.entrySet()) {
+	        	 String file = 
+	        	 entry.getKey()+" "+
+	        	 entry.getValue().getName()+" "+
+	        	 entry.getValue().getbGroup()+" "+
+	        	 entry.getValue().getGender()+" "+
+	        	 entry.getValue().getAge()+"\n";
+	        	 
+	        	 out.writeObject(file);
+	 		}
+	         out.close();
+	         fileOut.close();
+	         JOptionPane.showMessageDialog(null, "Serialized data is saved in HashMap_Data.dat");
+	      } catch (IOException i) {
+	         i.printStackTrace();
+	      }
+	}
+	
 
 }

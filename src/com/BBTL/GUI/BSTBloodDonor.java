@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import com.BBTL.runner.NavigationWindow;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -28,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import java.awt.Font;
@@ -161,10 +164,10 @@ public class BSTBloodDonor {
 						int key = Integer.parseInt(serchtf.getText());
 						roott = tree.searchRec(root,key);
 						
-						name.setText(""+root.bsName);
-						bgroup.setSelectedItem(root.bsGroup);
-						gender.setSelectedItem(root.bsGender);
-						age.setText(""+root.bsAge);
+						name.setText(""+roott.bsName);
+						bgroup.setSelectedItem(roott.bsGroup);
+						gender.setSelectedItem(roott.bsGender);
+						age.setText(""+roott.bsAge);
 						
 					}
 				});
@@ -251,8 +254,8 @@ public class BSTBloodDonor {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				// NavigationWindow b = new NavigationWindow();
-				// b.frame.setVisible(true);
+				 NavigationWindow b = new NavigationWindow();
+				 b.frame.setVisible(true);
 			}
 		});
 		btnCancel.setBounds(679, 428, 89, 23);

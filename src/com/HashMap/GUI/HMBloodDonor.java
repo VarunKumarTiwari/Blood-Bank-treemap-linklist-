@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import com.BBTL.runner.NavigationWindow;
 import com.Linklist.GUI.LLBloodDonor;
 
 import javax.swing.JComboBox;
@@ -57,18 +58,7 @@ public class HMBloodDonor {
 	 * Launch the application.
 	 */
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HMBloodDonor window = new HMBloodDonor();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 	
 	/**
 	 * Create the application.
@@ -138,7 +128,7 @@ public class HMBloodDonor {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.PINK);
-		panel.setBounds(181, 402, 488, 49);
+		panel.setBounds(135, 407, 488, 49);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -202,8 +192,7 @@ public class HMBloodDonor {
 				String Dname = name.getText();
 				String Dbgroup = bgroup.getSelectedItem().toString();
 				String Dgender = gender.getSelectedItem().toString();
-				int Dage = 0;
-				Dage = Integer.parseInt(age.getText());
+				String Dage = age.getText();
 				int AutoID = idg.autoIDGenerate();
 				idg.addToList(AutoID);
 				boolean flag = true;
@@ -219,20 +208,20 @@ public class HMBloodDonor {
 					JOptionPane.showMessageDialog(null, "Select Donor's gender");
 					flag = false;
 				}
-				if (Dage == 0) {
+				if (Dage == null) {
 					JOptionPane.showMessageDialog(null, "Donor's age Can not be empty");
 					flag = false;
 				}
 				if (flag == true) {
-					
-				map = hm.insertRec(AutoID, Dname, Dbgroup, Dgender, Dage);
+					int age = Integer.parseInt(Dage); 
+				map = hm.insertRec(AutoID, Dname, Dbgroup, Dgender, age);
 					table.setModel(hm.toTableModel(map));
 				}
 
 			}
 
 		});
-		btnAdd.setBounds(53, 428, 89, 23);
+		btnAdd.setBounds(20, 428, 89, 23);
 		frame.getContentPane().add(btnAdd);
 
 		JButton btnCancel = new JButton("EXIT");
@@ -240,17 +229,17 @@ public class HMBloodDonor {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				// NavigationWindow b = new NavigationWindow();
-				// b.frame.setVisible(true);
+				 NavigationWindow b = new NavigationWindow();
+				 b.frame.setVisible(true);
 			}
 		});
-		btnCancel.setBounds(679, 428, 89, 23);
+		btnCancel.setBounds(662, 428, 89, 23);
 		frame.getContentPane().add(btnCancel);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.PINK);
-		panel_1.setBounds(181, 345, 488, 49);
+		panel_1.setBounds(135, 347, 488, 49);
 		frame.getContentPane().add(panel_1);
 
 		textField = new JTextField();
@@ -260,7 +249,7 @@ public class HMBloodDonor {
 
 		JLabel lblDeleteByDonor = new JLabel("Delete by Donor ID");
 		lblDeleteByDonor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDeleteByDonor.setBounds(10, 24, 133, 14);
+		lblDeleteByDonor.setBounds(11, 24, 133, 14);
 		panel_1.add(lblDeleteByDonor);
 
 		JButton button = new JButton("Delete");
@@ -276,7 +265,21 @@ public class HMBloodDonor {
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
 		button.setBounds(365, 20, 89, 23);
 		panel_1.add(button);
-
+		
+		JButton btnSortById = new JButton("Export Table Data");
+		btnSortById.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hm.PSave();
+			}
+		});
+		
+		btnSortById.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSortById.setBounds(633, 347, 137, 49);
+		frame.getContentPane().add(btnSortById);
+		
+		
+		
+		
 		JLabel lblbloodIcon = new JLabel("");
 		lblbloodIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("logo.png")).getImage()
 				.getScaledInstance(123, 99, Image.SCALE_SMOOTH)));

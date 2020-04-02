@@ -49,6 +49,7 @@ public class LLBloodDonor {
 	private LinkList ll = new LinkList();
 	private IDGenerater idg = new IDGenerater();
 	private JTable table;
+	private LLDonorData llData;
 	private LinkedList<LLDonorData> lData;
 	// private int DonorId= idg.autoIDGenerate();
 
@@ -56,19 +57,7 @@ public class LLBloodDonor {
 	 * Launch the application.
 	 */
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LLBloodDonor window = new LLBloodDonor();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	
 	/**
 	 * Create the application.
@@ -135,7 +124,7 @@ public class LLBloodDonor {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.PINK);
-		panel.setBounds(181, 402, 488, 49);
+		panel.setBounds(122, 402, 483, 49);
 		frame.getContentPane().add(panel);
 				panel.setLayout(null);
 		
@@ -153,14 +142,14 @@ public class LLBloodDonor {
 				btnSearch.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-//						int key = Integer.parseInt(serchtf.getText());
-//						root = tree.searchRec(root,key);
-//						
-//						name.setText(""+root.bsName);
-//						bgroup.setSelectedItem(root.bsGroup);
-//						gender.setSelectedItem(root.bsGender);
-//						age.setText(""+root.bsAge);
-//						
+						int key = Integer.parseInt(serchtf.getText());
+						llData = ll.searchRec(key);
+						
+						name.setText(""+llData.getName());
+						bgroup.setSelectedItem(llData.getbGroup());
+						gender.setSelectedItem(llData.getGender());
+						age.setText(""+llData.getAge());
+						
 					}
 				});
 				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -186,7 +175,7 @@ public class LLBloodDonor {
 		age.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(317, 24, 441, 221);
+		scrollPane.setBounds(317, 24, 451, 294);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -238,7 +227,7 @@ public class LLBloodDonor {
 				
 			}
 		});
-		btnAdd.setBounds(53, 428, 89, 23);
+		btnAdd.setBounds(23, 428, 89, 23);
 		frame.getContentPane().add(btnAdd);
 
 		JButton btnCancel = new JButton("EXIT");
@@ -250,14 +239,14 @@ public class LLBloodDonor {
 				 b.frame.setVisible(true);
 			}
 		});
-		btnCancel.setBounds(679, 428, 89, 23);
+		btnCancel.setBounds(656, 428, 89, 23);
 		frame.getContentPane().add(btnCancel);
 		
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.PINK);
-		panel_1.setBounds(181, 345, 488, 49);
+		panel_1.setBounds(125, 345, 480, 49);
 		frame.getContentPane().add(panel_1);
 		
 		textField = new JTextField();
@@ -282,6 +271,16 @@ public class LLBloodDonor {
 		button.setFont(new Font("Tahoma", Font.BOLD, 11));
 		button.setBounds(365, 20, 89, 23);
 		panel_1.add(button);
+		
+		JButton btnSortById = new JButton("Export Table Data");
+		btnSortById.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ll. PSave();
+			}
+		});
+		btnSortById.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSortById.setBounds(627, 345, 141, 49);
+		frame.getContentPane().add(btnSortById);
 		
 		JLabel lblbloodIcon = new JLabel("");
 		

@@ -36,21 +36,12 @@ class BinarySearchTree {
 
 	public Nodes searchRec(Nodes root, int key) {
 
-		List<List> Data = new ArrayList<List>();
-		ArrayList<String> stringData = new ArrayList<String>();
-		ArrayList<Integer> integerData = new ArrayList<Integer>();
 		if(root == null)
 		{
 			JOptionPane.showMessageDialog(null, "tree is empty");
 		}
 		if (root == null || root.key == key) {
-			integerData.add(root.key);
-			stringData.add("Donor Name"+root.bsName);
-			stringData.add("Donor blood group"+root.bsGroup);
-			stringData.add("Donor gender"+root.bsGender);
-			integerData.add(root.bsAge);
-			Data.add(0,integerData);
-			Data.add(1, stringData);
+
 			return root;
 		}
 

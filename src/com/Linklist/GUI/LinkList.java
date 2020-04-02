@@ -1,5 +1,12 @@
 package com.Linklist.GUI;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +55,8 @@ private LLDonorData dData;
 			
 			LLDonorData listt = iterator.next();
 			if (id == listt.getAutoId()) {
-				
+				index = allDonor.indexOf(listt);
+
 				isKeyPresent = true;
 			//	System.out.println(allDonor.indexOf(dData.getAutoId()==id));
 
@@ -58,26 +66,51 @@ private LLDonorData dData;
 		return isKeyPresent;
 	}
 	
-//	public LLDonorData searchRec(int id) {
-//		boolean result = ifExist(id);
-//		if (result) {
-//			return map.get(id);
-//		} else {
-//			JOptionPane.showMessageDialog(null, "Invalid Key Entered");
-//			return null;
-//		}
-//	}
-
+	public LLDonorData searchRec(int id) {
+		boolean result = ifExist(id);
+		if (result) {
+			return allDonor.get(index);
+		} else {
+			JOptionPane.showMessageDialog(null, "Invalid Key Entered");
+			return null;
+		}
+	}
+	
 	public void deleteRec(int id) {
 		boolean result = ifExist(id);
 		if (result) {
-			
-			//allDonor.remove();
+			allDonor.remove(index);
 			JOptionPane.showMessageDialog(null, "Record is Deleted");
 		} else {
 			JOptionPane.showMessageDialog(null, "Invalid Key Entered");
 
 		}
 	}
+	
+	public void PSave()
+	{
+		try {
+	         FileOutputStream fileOut = new FileOutputStream("LinkedList_Data.dat");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         for (LLDonorData entry : allDonor) {
+	        	 String file = 
+	        	 entry.getAutoId()+" "+
+	        	 entry.getName()+" "+
+	        	 entry.getbGroup()+" "+
+	        	 entry.getGender()+" "+
+	        	 entry.getAge()+"\n";
+	        	 
+	        	 out.writeObject(file);
+	 		}
+	         out.close();
+	         fileOut.close();
+	         JOptionPane.showMessageDialog(null, "Serialized data is saved in LinkedList_Data.dat");
+
+	      } catch (IOException i) {
+	         i.printStackTrace();
+	      }
+	}
+	
+	
 
 }

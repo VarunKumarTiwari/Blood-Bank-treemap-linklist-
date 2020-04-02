@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.BBTL.GUI.BSTBloodDonor;
+import com.HashMap.GUI.HMBloodDonor;
+import com.Linklist.GUI.LLBloodDonor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,7 +51,8 @@ public class NavigationWindow  {
 		lblBloodDonation.setBounds(40, 28, 239, 37);
 		frame.getContentPane().add(lblBloodDonation);
 		
-		JButton btnBloodDonor = new JButton("Blood Donor");
+		JButton btnBloodDonor = new JButton("Binary Search Tree");
+		btnBloodDonor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnBloodDonor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
@@ -57,29 +60,31 @@ public class NavigationWindow  {
 				window.frame.setVisible(true);
 			}
 		});
-		btnBloodDonor.setBounds(67, 91, 123, 37);
+		btnBloodDonor.setBounds(67, 91, 146, 37);
 		frame.getContentPane().add(btnBloodDonor);
 		
-		JButton btnSearch = new JButton("Search");
+		JButton btnSearch = new JButton("Hash Map");
+		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-//		        Search_Select b = new Search_Select();
-//		        b.frame.setVisible(true);
+				HMBloodDonor b = new HMBloodDonor();
+		        b.frame.setVisible(true);
 			}
 		});
-		btnSearch.setBounds(67, 175, 123, 37);
+		btnSearch.setBounds(67, 175, 146, 37);
 		frame.getContentPane().add(btnSearch);
 		
-		JButton btnExportD = new JButton("Export Details");
+		JButton btnExportD = new JButton("Linked List");
+		btnExportD.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnExportD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-//		        Export b = new Export();
-//		        b.frame.setVisible(true);
+				LLBloodDonor b = new LLBloodDonor();
+		        b.frame.setVisible(true);
 			}
 		});
-		btnExportD.setBounds(67, 258, 123, 37);
+		btnExportD.setBounds(67, 258, 146, 37);
 		frame.getContentPane().add(btnExportD);
 		
 		JLabel lblbloodIcon = new JLabel("");

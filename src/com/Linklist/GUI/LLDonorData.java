@@ -1,6 +1,9 @@
 package com.Linklist.GUI;
 
-public class LLDonorData {
+import java.io.Serializable;
+import java.util.Iterator;
+
+public class LLDonorData implements Serializable {
 	private int AutoId;
 	
 	private String name;
@@ -38,4 +41,6 @@ public class LLDonorData {
 	public void setAge(int age) {
 		Age = age;
 	}
+	
+	
 }

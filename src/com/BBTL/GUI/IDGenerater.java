@@ -30,7 +30,7 @@ public class IDGenerater {
 		} else {
 			if (counter <= 29) {
 				autoIDGenerate();
-				counter++;
+				
 			} else {
 				JOptionPane.showMessageDialog(null, "Memory full");
 			}
